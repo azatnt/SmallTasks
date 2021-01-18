@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
 from .models import *
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.template.loader import render_to_string
 from .forms import *
 from django.urls import reverse
 from Requests.models import *
 from Requests.forms import *
+from django.utils import timezone
+
 
 
 def register(request):
@@ -30,6 +32,10 @@ def profiles(request):
         request_form = RequestForm(request.POST or None)
         if request_form.is_valid():
             content = request.POST.get('content')
+            yesterday = timezone.now() - timezone.timedelta(days=1)
+            if Requests.objects.filter(user=request.user, wrote_date__gt=yesterday).exists():
+                return HttpResponseForbidden()
+
             # reply_id = request.POST.get('comment_id')
             comment_qs = None
             # if reply_id:
