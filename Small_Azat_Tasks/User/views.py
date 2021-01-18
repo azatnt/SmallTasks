@@ -1,7 +1,12 @@
-from django.shortcuts import render, redirect
-from .forms import *
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
 from .models import *
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from .forms import *
+from django.urls import reverse
+from Requests.models import *
+from Requests.forms import *
 
 
 def register(request):
@@ -19,27 +24,31 @@ def register(request):
 
 def profiles(request):
     profile = Profile.objects.get_or_create(user=request.user)
-    # if request.method == 'POST':
-        # print("GONNA")
-        # u_form = UserUpdateForm(request.POST, instance=request.user)
-        # p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        # print(p_form)
-        # if p_form.is_valid():
-        #     print("gonna save")
-        #     # u_form.save()
-        #     p_form.save()
-        #
-        #     print(p_form)
-        # return redirect('obrazovanie_url')
+    requests = Requests.objects.all().order_by('-id')
 
-    # else:
-        # u_form = UserUpdateForm(instance=request.user)
-        # p_form = ProfileUpdateForm(instance=request.user.profile)
-        # print("didn't work")
-    # return redirect('obrazovanie_url')
+    if request.method == 'POST':
+        request_form = RequestForm(request.POST or None)
+        if request_form.is_valid():
+            content = request.POST.get('content')
+            # reply_id = request.POST.get('comment_id')
+            comment_qs = None
+            # if reply_id:
+            #     comment_qs = Comment.objects.get(id=reply_id)
+            comment = Requests.objects.create(user=request.user, content=content, )
+            comment.save()
+            return HttpResponseRedirect(reverse('profile_url'))
+
+    else:
+        request_form = RequestForm()
 
     context = {
-        # 'u_form': u_form,
-        # 'p_form': p_form
+        'comments': requests,
+        'comment_form': request_form,
     }
+
+    if request.is_ajax():
+        html = render_to_string('user/requests.html', context, request=request)
+        return JsonResponse({'form':html})
+
     return render(request, 'user/profile.html', context)
+

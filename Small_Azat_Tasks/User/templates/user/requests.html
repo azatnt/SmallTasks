@@ -1,0 +1,22 @@
+
+<div class="container-fluid mt-2">
+  <div class="form-group row">
+    <form method="post" class="com-form">
+      {% csrf_token %}
+        <div class="com-form">
+          <div class="com-form-text">
+            {{ comment_form.as_p }}
+          </div>
+          <div class="com-form-input">
+              <input type="submit" value="Отправить" class="btn btn-default">
+          </div>
+
+        </div>
+    </form>
+  </div>
+</div>
+
+
+{% for comment in comments %}
+    {{ comment.content }}
+{% endfor %}

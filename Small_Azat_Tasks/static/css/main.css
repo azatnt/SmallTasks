@@ -470,3 +470,44 @@ iframe {
 .size2 {
   width: calc(100% - 43px);
 }
+
+
+.com-form{
+   /*border: 1px solid blue;*/
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+
+  background-color: black;
+  align-items: center;
+
+}
+.com-form-input {
+   /*border: 1px solid red;*/
+  width: 15%;
+  text-align: center;
+  color: white;
+  height: 100%;
+  outline: 0;
+
+}
+.com-form-input input{
+  border: 1px solid orange;
+  width: 100%;
+  font-size: 15px;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.com-form-input input:hover{
+  color: orange;
+  /* border: 1px solid white; */
+  background-color: black;
+  outline: 0;
+}
+.com-form-text{
+  width: 45%;
+  margin-top: 2%;
+}
