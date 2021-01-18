@@ -6,7 +6,12 @@
             <div class="container">
                 <div class="masthead-subheading">Добро пожаловать!</div>
                 <div class="masthead-heading text-uppercase">Техническое задание</div>
-                <a class="btn btn-success btn-xl text-uppercase js-scroll-trigger" href="#services">Начать</a>
+
+                {% if user.is_authenticated %}
+                    <a class="btn btn-success btn-xl text-uppercase js-scroll-trigger" href="{% url 'profile_url' %}">Начать</a>
+                {% else %}
+                    <a class="btn btn-success btn-xl text-uppercase js-scroll-trigger" href="{% url 'login_url' %}">Начать</a>
+                {% endif %}
             </div>
         </header>
 
