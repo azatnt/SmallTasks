@@ -24,7 +24,7 @@ def register(request):
 
 def profiles(request):
     profile = Profile.objects.get_or_create(user=request.user)
-    requests = Requests.objects.all().order_by('-id')
+    requests = Requests.objects.filter(user=request.user).order_by('id')
 
     if request.method == 'POST':
         request_form = RequestForm(request.POST or None)
@@ -33,8 +33,8 @@ def profiles(request):
             # reply_id = request.POST.get('comment_id')
             comment_qs = None
             # if reply_id:
-            #     comment_qs = Comment.objects.get(id=reply_id)
-            comment = Requests.objects.create(user=request.user, content=content, )
+            #     comment_qs = Requests.objects.get(id=reply_id)
+            comment = Requests.objects.create(user=request.user, content=content)
             comment.save()
             return HttpResponseRedirect(reverse('profile_url'))
 
@@ -52,3 +52,8 @@ def profiles(request):
 
     return render(request, 'user/profile.html', context)
 
+
+def message_delete(request, id):
+    comment = Requests.objects.get(id=id)
+    comment.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

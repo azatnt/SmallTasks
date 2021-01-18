@@ -9,7 +9,6 @@ $(document).on('submit', '.com-form', function(event){
 				success: function(response) {
 					$('.main-comment-section').html(response['form']);
 					// $('.comment_form').fadeIn()
-					// document.getElementById("message").reset();
 
 
 					// $('textarea').val('');

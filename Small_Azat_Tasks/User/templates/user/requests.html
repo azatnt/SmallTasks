@@ -18,5 +18,26 @@
 
 
 {% for comment in comments %}
-    {{ comment.content }}
+<div class="comment_form" id="comment_form">
+  <blockquote class="blockquote">
+    <p class="mb-0" id="report_ty"><small>{{ comment.content }}</small></p>
+    <footer class="blockquote-footer" style="margin-top: 0.1%"><small>by {{ comment.user|capfirst }}| {{ comment.timestamp|timesince }} ago</small>
+      <a style="text-decoration:none; height:auto;" id="com_del_btn" class="btn btn-outline-dark btn-sm" href="{% url 'message_delete_url' id=comment.id %}">Удалить</a>
+    </footer>
+  </blockquote>
+
+    {% for comment in comment.reply_set.all %}
+    <blockquote style="padding-left:10%;width: 50%; float: right" class="blockquote">
+    <p class="mb-0" id="report_ty"><small>{{ comment.content }}</small></p>
+
+    <footer class="blockquote-footer" style="margin-top: 0.1%"><small>by Manager | {{ comment.timestamp|timesince }} ago</small>
+    </footer>
+  </blockquote>
+        {% endfor %}
+
+
+</div>
 {% endfor %}
+
+
+

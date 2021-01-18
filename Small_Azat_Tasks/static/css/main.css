@@ -1,6 +1,11 @@
 body{
+    height: 100%;
     margin: 0;
     bottom: 0;
+}
+* {
+	padding:0;
+	margin:0;
 }
 
 a{
@@ -510,4 +515,18 @@ iframe {
 .com-form-text{
   width: 45%;
   margin-top: 2%;
+}
+
+.comment_form{
+  /*border: 1px solid red;*/
+  margin-top: 20px;
+  margin-left: 10%;
+
+}
+.comment-btn{
+  color: red;
+  font-size: 17px;
+}
+.comment-btn:hover{
+  color: orange;
 }

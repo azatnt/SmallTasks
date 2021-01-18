@@ -2,12 +2,6 @@
 
 
 
-{% block title %}
-
-	Профиль
-
-{% endblock %}
-
 
 {% block content %}
 
@@ -20,14 +14,6 @@
   <h1>@{{ user.username }}</h1>
   <p class="title_profile">{{p_form.phone}}</p>
 	<!-- {{p_form.errors}} -->
-{#  <p id="write-post"><a class="my_prof_write_post" href="{% url 'report_create_url' %}">Написать пост</a></p>#}
-{#		{% for report in user.report_set.all %}#}
-{#			<a id="item_ds" href="{% url 'report_detail_url' id=report.id %}">#}
-{#				<div class="report-name">#}
-{#					{{ report.title }}#}
-{#				</div>#}
-{#			</a>#}
-{#		{% endfor %}#}
   <div style="margin: 24px 0;" class="profile_href">
     <a href="#"><i class="fa fa-dribbble"></i></a>
     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -35,11 +21,8 @@
     <a href="#"><i class="fa fa-facebook"></i></a>
   </div>
 
-
-
 <a href="{% url 'logout_url' %}">
 	<button class="profile_button" type="submit" style="border: none;outline: 0;display: inline-block;padding: 8px;color: white;background-color: #000; margin-top:30px; text-align: center;cursor: pointer;width: 100%;font-size: 18px;">Выйти</button>
-
 </a>
 
 </div>
@@ -47,24 +30,7 @@
 
     <div class="main-comment-section">
           {% include 'user/requests.html' %}
-          </div>
-
-{#        <div class="container-fluid mt-2">#}
-{#          <div class="form-group row">#}
-{#            <form method="post" class="com-form">#}
-{#              {% csrf_token %}#}
-{#                <div class="com-form">#}
-{#                  <div class="com-form-text">#}
-{#                    {{ comment_form.as_p }}#}
-{#                  </div>#}
-{#                  <div class="com-form-input">#}
-{#                      <input id="message" type="submit" value="Отправить" class="btn btn-default">#}
-{#                  </div>#}
-{##}
-{#                </div>#}
-{#            </form>#}
-{#          </div>#}
-{#        </div>#}
+    </div>
 
 
 
