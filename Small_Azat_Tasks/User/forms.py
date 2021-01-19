@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from Requests.forms import *
 
 
 class UserRegisterForm(UserCreationForm):
@@ -34,3 +35,9 @@ class MyAuthForm(AuthenticationForm):
         self.fields['username'].label = False
         self.fields['password'].widget = forms.PasswordInput(attrs={'placeholder':'Пароль'})
         self.fields['password'].label = False
+
+
+# class DocumentForm(forms.ModelForm):
+#     class Meta:
+#         model = Requests
+#         fields = ('file')

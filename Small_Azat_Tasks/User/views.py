@@ -10,7 +10,6 @@ from Requests.forms import *
 from django.utils import timezone
 
 
-
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -29,17 +28,14 @@ def profiles(request):
     requests = Requests.objects.filter(user=request.user).order_by('id')
 
     if request.method == 'POST':
-        request_form = RequestForm(request.POST or None)
+        request_form = RequestForm(request.POST, request.FILES)
+
         if request_form.is_valid():
             content = request.POST.get('content')
             yesterday = timezone.now() - timezone.timedelta(days=1)
             if Requests.objects.filter(user=request.user, wrote_date__gt=yesterday).exists():
                 return HttpResponseForbidden()
 
-            # reply_id = request.POST.get('comment_id')
-            comment_qs = None
-            # if reply_id:
-            #     comment_qs = Requests.objects.get(id=reply_id)
             comment = Requests.objects.create(user=request.user, content=content)
             comment.save()
             return HttpResponseRedirect(reverse('profile_url'))

@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class Requests(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     wrote_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
